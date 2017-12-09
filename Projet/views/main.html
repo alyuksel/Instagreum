@@ -7,26 +7,29 @@
   <script src="lib/angular-route.min.js"></script>
   <script src="js/config.js"></script>
   <script src="js/controller.js"></script>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
-<body >
+<body ng-app="myApp">
   <header>
-    <h1>AlpAdamGram</h1>
-    <h4>Welcome on your Smart Share Photos Application</h4>
-  </header>
-  <div class="row-fluid" ng-app="myApp">
-    <nav class="span2">
-      <ul class="nav nav-list">
-        <li class="nav-header">Menu</li>
-        <li><a href="#!/home">Home</a></li>
-        <li><a href="#!/test">Formulaire</a></li>
-      </ul>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+      <a class="navbar-brand" href="#">AAG</a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="#!/home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#!/test">Formulaire</a></li>
+        </ul>
+      </div>
     </nav>
-    <div class="span10" ng-view>
+  </header>
+  <div class="container" >
+
+    <div class="container" ng-view>
     </div>
   </div>
   <footer>
-    <p>footer : ////</p>
+    <nav class="navbar fixed-bottom navbar-light bg-light">
+    <a class="navbar-brand" href="#">Footer</a>
+    </nav>
   </footer>
 </body>
 </html>
