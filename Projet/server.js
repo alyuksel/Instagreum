@@ -1,15 +1,5 @@
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/AAGramDB', {
-  useMongoClient: true,
-});
-var userSchema=mongoose.Schema({
-  pseudo:{type:String},
-  nom:{type:String},
-  prenom:{type:String},
-  age:{type:Number},
-  avatar:{data:Buffer,contentType: String }
-});
-var User=mongoose.model('User',userSchema);
+var model = require('./db/mongo');
+var User=model.mongoose.model('User',model.userSchema);
 
 var express = require('express');
 var bodyParser = require('body-parser');;

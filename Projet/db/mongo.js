@@ -1,8 +1,9 @@
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/AAGramDB', {
+
+exports.mongoose = require('mongoose');
+exports.mongoose.connect('mongodb://localhost/AAGramDB', {
   useMongoClient: true,
 });
-var userSchema=mongoose.Schema({
+exports.userSchema=exports.mongoose.Schema({
   pseudo:{type:String},
   nom:{type:String},
   prenom:{type:String},

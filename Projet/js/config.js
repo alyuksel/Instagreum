@@ -8,6 +8,7 @@ app.config(function($routeProvider){
   .otherwise({redirectTo:''});
 
 });
+
 app.controller('homeController', function($scope) {
 
     $scope.text = "hello world";
@@ -19,7 +20,10 @@ app.controller('testController', function($scope) {
 
 //TODO: trouver un moyen de crypter le mot de passe entré avant de l'envoyer à l'api
 app.controller('presController',['$scope', function($scope) {
-     $scope.password = sha256('');
+     $scope.password ='';
      $scope.username = '';
+     $scope.hash = function(){
+      $scope.password = sha256($scope.password);
 
+     }
 }]);
