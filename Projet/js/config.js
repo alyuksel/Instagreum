@@ -1,4 +1,4 @@
-var app=angular.module('myApp',['ngRoute']);
+var app=angular.module('myApp',['ngRoute','home-controller']);
 app.config(function($routeProvider){
   $routeProvider
   .when('/home',{templateUrl:'views/home.html',controller:'homeController'})
@@ -10,18 +10,12 @@ app.config(function($routeProvider){
 
 });
 
-app.controller('homeController', function($location,$rootScope,$scope) {
-    if($rootScope.loggedUser == null){
-      $location.path("/login");
-    }
-    $scope.text = "hello world";
-});
 app.controller('testController', function($scope) {
 
     $scope.text = "hello world";
 });
 app.controller('createUserController', function($scope) {
-  
+
 
 });
 
