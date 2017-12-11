@@ -14,7 +14,7 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/views/main.html');
 });
 
-app.post('/api/addUser', function(req,res) {
+app.post('/api/createUser', function(req,res) {
   if (!req.body) return res.sendStatus(400);
   var newUser=new User({
     pseudo:req.body.pseudo,
