@@ -1,4 +1,4 @@
-var app=angular.module('myApp',['ngRoute','home-controller','createUser-controller']);
+var app=angular.module('myApp',['ngRoute','home-controller','createUser-controller','login-controller','test-controller']);
 app.config(function($routeProvider){
   $routeProvider
   .when('/home',{templateUrl:'views/home.html',controller:'homeController'})
@@ -9,19 +9,3 @@ app.config(function($routeProvider){
   .otherwise({redirectTo:''});
 
 });
-
-app.controller('testController', function($scope) {
-
-  $scope.text = "hello world";
-});
-
-
-app.controller('loginController',['$scope', function($scope) {
-  $scope.password ='';
-  $scope.username = '';
-  $scope.hash = function(){
-    $scope.password = sha256($scope.password);
-
-
-  }
-}]);
