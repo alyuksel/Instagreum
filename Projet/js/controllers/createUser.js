@@ -63,7 +63,8 @@ angular.module('createUser-controller',[]).controller('createUserController', fu
           },function(response){
               $scope.error="erreur dans la saisies des informations";
           });
+        }
+      );
 
-    }
-  })};
 }
+});
