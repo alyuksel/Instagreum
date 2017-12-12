@@ -2,39 +2,41 @@
 
   <div class="form-group">
     <label >Name</label>
-    <input type="text" class="form-control" id="exampleFormControlTextarea1" >
+    <input type="text" class="form-control" ng-model="name" id="exampleFormControlTextarea1" placeholder="Name" >
   </div>
 
   <div class="form-group">
     <label >FirstName</label>
-    <input type="text" class="form-control" id="exampleFormControlTextarea1" >
+    <input type="text" class="form-control" ng-model="firstname" id="exampleFormControlTextarea1" placeholder="FirstName">
   </div>
 
   <div class="form-group">
-    <label >Pseudo</label>
-    <input type="Text" class="form-control" id="exampleFormControlTextarea1" >
+    <label >Username</label>
+    <input type="Text" class="form-control" ng-model="username" id="exampleFormControlTextarea1" placeholder="Username">
   </div>
 
   <div class="form-group">
     <label >Email Address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1">
+    <input type="email" class="form-control" ng-model="mail" id="exampleInputEmail1" placeholder="user@mail.com">
  </div>
 
   <div class="form-group">
     <label >Date de naissance</label>
-    <input type="date" class="form-control" >
+    <input type="date" ng-model="birthdate" class="form-control" >
   </div>
 
   <div class="form-group">
     <label >Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    <input type="password" class="form-control" ng-model="password" id="exampleInputPassword1" placeholder="Password">
   </div>
 
   <div class="form-group">
     <label >Confirm Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    <input type="password" class="form-control" ng-model="password2" id="exampleInputPassword1" placeholder="Password">
+    <small>{{error}}</small>
   </div>
 
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" ng-click="valid()" class="btn btn-primary">Submit</button>
 
+  <p>{{username}}{{name}}{{firstname}}{{birthdate}}{{password}}{{birthdate}}{{mail}}</p>
 </form>

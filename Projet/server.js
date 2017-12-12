@@ -17,15 +17,16 @@ app.get('/', function (req, res) {
 app.post('/api/createUser', function(req,res) {
   if (!req.body) return res.sendStatus(400);
   var newUser=new User({
-    pseudo:req.body.pseudo,
-    nom:req.body.nom,
-    prenom:req.body.prenom,
-    age:req.body.age,
-    avatar:req.body.avatar
+    username:req.body.username,
+    name:req.body.name,
+    firstname:req.body.firstname,
+    birthdate:req.body.birthdate,
+    password:req.body.password,
+    mail:req.body.mail
   });
   newUser.save(function(err){
     if (err){
-      res.send('err');
+      res.send(newUser);
     }
     else{
       res.send('Done');
