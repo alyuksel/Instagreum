@@ -23,7 +23,7 @@ angular.module('createUser-controller',[]).controller('createUserController', fu
       var username = $scope.username;
       var get = $http.get('/api/login/'+username, data);
       get.then(function(response){
-
+        
         var post = $http.post('/api/createUser', data);
         post.then(function(response){
            $location.path('/login');

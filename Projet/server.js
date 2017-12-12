@@ -34,6 +34,16 @@ app.post('/api/createUser', function(req,res) {
     }
   })
 });
+app.get('/api/register/:u',function(req,res){
+  var u = req.params.u;
+  var user = User.findOne({username:u}).select('username').exec(function (err, doc){
+    if(user){
+      res.send(doc);
+    }else{
+      res.send();
+    }
 
+  });
+});
 console.log("server start");
 app.listen(9090);
