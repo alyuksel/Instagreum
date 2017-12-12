@@ -20,13 +20,19 @@ angular.module('createUser-controller',[]).controller('createUserController', fu
         password:sha256($scope.password),
         mail:$scope.mail
       });
+      var username = $scope.username;
+      var get = $http.get('/api/login/'+username, data);
+      get.then(function(response){
 
-      var post = $http.post('/api/createUser', data);
-      post.then(function(response){
-         $location.path('/login');
+        var post = $http.post('/api/createUser', data);
+        post.then(function(response){
+           $location.path('/login');
+        },function(response){
+            $scope.error="erreur dans la saisies des informations";
+        });
       },function(response){
           $scope.error="erreur dans la saisies des informations";
-      });;
+      });
     }
   }
 });
