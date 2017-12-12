@@ -1,4 +1,4 @@
-var app=angular.module('myApp',['ngRoute']);
+var app=angular.module('myApp',['ngRoute','home-controller','createUser-controller']);
 app.config(function($routeProvider){
   $routeProvider
   .when('/home',{templateUrl:'views/home.html',controller:'homeController'})
@@ -10,55 +10,18 @@ app.config(function($routeProvider){
 
 });
 
-app.controller('homeController', function($location,$rootScope,$scope) {
-  if($rootScope.loggedUser == null){
-    $location.path("/login");
-  }
-  $scope.text = "hello world";
-});
 app.controller('testController', function($scope) {
 
   $scope.text = "hello world";
 });
-app.controller('createUserController', function($scope,$location,$http) {
-  $scope.username ="";
-  $scope.name ="";
-  $scope.firstname="";
-  $scope.password="";
-  $scope.password2="";
-  $scope.birthdate="";
-  $scope.mail="";
-  $scope.error="";
-  $scope.valid = function()
-  {
-    if($scope.password != $scope.password2){
-      $scope.error="vos mots de passes sont differents";
-    }else{
-      var data = JSON.stringify({
-        username:$scope.username,
-        name:$scope.name,
-        firstname:$scope.firstname,
-        birthdate:$scope.birthdate,
-        password:sha256($scope.password),
-        mail:$scope.mail
-      });
 
-      var post = $http.post('/api/createUser', data);
-      post.then(function(response){
-         $location.path('/login');
-      },function(response){
-          $scope.error="erreur dans la saisies des informations";
-      });;
-    }
-  }
-});
 
 app.controller('loginController',['$scope', function($scope) {
   $scope.password ='';
   $scope.username = '';
   $scope.hash = function(){
     $scope.password = sha256($scope.password);
-    
+
 
   }
 }]);
