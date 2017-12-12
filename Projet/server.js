@@ -3,8 +3,9 @@ var User=model.mongoose.model('User',model.userSchema);
 
 var express = require('express');
 var bodyParser = require('body-parser');;
-
 var app = express();
+
+app.use(bodyParser.json());
 app.use('/js', express.static(__dirname + '/js'));
 app.use('/views', express.static(__dirname + '/views'));
 app.use('/css', express.static(__dirname + '/css'));
@@ -16,7 +17,7 @@ app.get('/', function (req, res) {
 
 app.post('/api/createUser', function(req,res) {
   if (!req.body) return res.sendStatus(400);
-  var newUser=new User({
+   var newUser=new User({
     username:req.body.username,
     name:req.body.name,
     firstname:req.body.firstname,

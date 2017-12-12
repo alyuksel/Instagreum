@@ -34,21 +34,21 @@ app.controller('createUserController', function($scope,$location,$http) {
     if($scope.password != $scope.password2){
       $scope.error="vos mots de passes sont differents";
     }else{
-      var data = {
+      var data = JSON.stringify({
         username:$scope.username,
         name:$scope.name,
         firstname:$scope.firstname,
         birthdate:$scope.birthdate,
         password:sha256($scope.password),
         mail:$scope.mail
-      };
+      });
 
-      var config = {
-        headers : {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
-        }
-      }
-      $http.post('/api/createUser', data, config);
+      var post = $http.post('/api/createUser', data);
+      post.then(function(response){
+         $location.path('/login');
+      },function(response){
+          $scope.error="erreur dans la saisies des informations";
+      });;
     }
   }
 });
@@ -58,6 +58,7 @@ app.controller('loginController',['$scope', function($scope) {
   $scope.username = '';
   $scope.hash = function(){
     $scope.password = sha256($scope.password);
+    
 
   }
 }]);
