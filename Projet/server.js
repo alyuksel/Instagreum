@@ -45,5 +45,15 @@ app.get('/api/register/:u',function(req,res){
 
   });
 });
+app.get('/api/login/:u',function(req,res){
+  var u = req.params.u;
+  var user = User.findOne({username:u}).select('password').exec(function (err, doc){
+    if(doc){
+      res.send(doc);
+    }else{
+      res.status(204).send("missing user");
+    }
+  });
+});
 console.log("server start");
 app.listen(9090);

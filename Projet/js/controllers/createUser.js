@@ -1,4 +1,8 @@
-angular.module('createUser-controller',[]).controller('createUserController', function($scope,$location,$http) {
+angular.module('createUser-controller',[]).controller('createUserController', function($scope,$rootScope,$location,$http) {
+    if($rootScope.loggedUser)
+    {
+      $location.path('/home');
+    }
     $scope.username ="";
     $scope.name ="";
     $scope.firstname="";
@@ -12,7 +16,7 @@ angular.module('createUser-controller',[]).controller('createUserController', fu
 
     function removeError(error){
       if(error in $scope.errors){
-          delete $scope.errors[error];
+        delete $scope.errors[error];
       }
     }
     $scope.checkUser = function(){
@@ -30,7 +34,7 @@ angular.module('createUser-controller',[]).controller('createUserController', fu
     $scope.checkPasswords=function(){
       if($scope.password){
         if($scope.password.length<8){
-            $scope.errors["password"] = "Votre mot de passe doit contenir au moins 8 caractères";
+          $scope.errors["password"] = "Votre mot de passe doit contenir au moins 8 caractères";
         }else removeError("password");
         if($scope.password2 && $scope.password2!=$scope.password){
           $scope.errors["password2"] = "Vos mot de passe sont differents";
@@ -49,28 +53,28 @@ angular.module('createUser-controller',[]).controller('createUserController', fu
 
     $scope.valid = function()
     {
-        var data = JSON.stringify({
-          username:$scope.username,
-          name:$scope.name,
-          firstname:$scope.firstname,
-          birthdate:$scope.birthdate,
-          password:sha256($scope.password),
-          mail:$scope.mail
-        });
-        var username = $scope.username;
-        var get = $http.get('/api/register/'+username);
-        get.then(function(response){
-          if(response.data!=''){
-            $scope.errors["username"]="le nom d'utilisateur existe déjà";
-          }else{
-            var post = $http.post('/api/createUser', data);
-            post.then(function(response){
-               console.log("success");
-               $location.path('/login');
-            },function(response){
-                $scope.error="erreur dans la saisies des informations";
-            });
-          }
-        });
+      var data = JSON.stringify({
+        username:$scope.username,
+        name:$scope.name,
+        firstname:$scope.firstname,
+        birthdate:$scope.birthdate,
+        password:sha256($scope.password),
+        mail:$scope.mail
+      });
+      var username = $scope.username;
+      var get = $http.get('/api/register/'+username);
+      get.then(function(response){
+        if(response.data!=''){
+          $scope.errors["username"]="le nom d'utilisateur existe déjà";
+        }else{
+          var post = $http.post('/api/createUser', data);
+          post.then(function(response){
+            console.log("success");
+            $location.path('/login');
+          },function(response){
+            $scope.error="erreur dans la saisies des informations";
+          });
+        }
+      });
     }
-});
+  });
