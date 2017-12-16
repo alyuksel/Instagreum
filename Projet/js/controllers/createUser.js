@@ -15,7 +15,11 @@ angular.module('createUser-controller',[]).controller('createUserController', fu
           delete $scope.errors[error];
       }
     }
-
+    $scope.checkUser = function(){
+      if($scope.errors["username"] && $scope.username==''){
+        removeError("username");
+      }
+    }
     $scope.checkErrors=function(){
       var isAllFilled = $scope.username && $scope.name && $scope.firstname && $scope.password
       && $scope.password2 && $scope.birthdate && $scope.mail;
@@ -54,17 +58,19 @@ angular.module('createUser-controller',[]).controller('createUserController', fu
           mail:$scope.mail
         });
         var username = $scope.username;
-        var get = $http.get('/api/login/'+username, data);
+        var get = $http.get('/api/register/'+username);
         get.then(function(response){
-
-          var post = $http.post('/api/createUser', data);
-          post.then(function(response){
-             $location.path('/login');
-          },function(response){
-              $scope.error="erreur dans la saisies des informations";
-          });
-        }
-      );
-
-}
+          if(response.data!=''){
+            $scope.errors["username"]="le nom d'utilisateur existe déjà";
+          }else{
+            var post = $http.post('/api/createUser', data);
+            post.then(function(response){
+               console.log("success");
+               $location.path('/login');
+            },function(response){
+                $scope.error="erreur dans la saisies des informations";
+            });
+          }
+        });
+    }
 });
