@@ -6,21 +6,24 @@
   <script src="lib/angular.min.js"></script>
   <script src="lib/angular-route.min.js"></script>
   <script src="lib/sha256.min.js"></script>
+  <script src="lib/angular-cookies.js"></script>
   <script src="js/config.js"></script>
   <script src="js/controllers/createUser.js"></script>
   <script src="js/controllers/home.js"></script>
   <script src="js/controllers/login.js"></script>
+  <script src="js/controllers/main.js"></script>
   <script src="js/controllers/test.js"></script>
   <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body ng-app="myApp">
   <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" ng-controller="mainController">
       <a class="navbar-brand" href="#">AAG</a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
           <li class="nav-item"><a class="nav-link" href="#!/home">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="#!/test">Formulaire</a></li>
+          <li class="nav-item"><button ng-show="disco" type="submit" ng-click="logout()" class="btn btn-primary">{{disco}}</button></li>
         </ul>
       </div>
     </nav>

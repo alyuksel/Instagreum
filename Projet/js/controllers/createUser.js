@@ -1,5 +1,5 @@
-angular.module('createUser-controller',[]).controller('createUserController', function($scope,$rootScope,$location,$http) {
-    if($rootScope.loggedUser)
+angular.module('createUser-controller',[]).controller('createUserController', function($scope,$cookies,$location,$http) {
+    if($cookies.get("current")!=null)
     {
       $location.path('/home');
     }
@@ -19,11 +19,13 @@ angular.module('createUser-controller',[]).controller('createUserController', fu
         delete $scope.errors[error];
       }
     }
+
     $scope.checkUser = function(){
       if($scope.errors["username"] && $scope.username==''){
         removeError("username");
       }
     }
+
     $scope.checkErrors=function(){
       var isAllFilled = $scope.username && $scope.name && $scope.firstname && $scope.password
       && $scope.password2 && $scope.birthdate && $scope.mail;
@@ -41,6 +43,7 @@ angular.module('createUser-controller',[]).controller('createUserController', fu
         }else removeError("password2");
       }
     }
+
     $scope.checkEmail = function(){
       if(!$scope.mail){
         $scope.errors["email"] = "Adresse mail invalide";

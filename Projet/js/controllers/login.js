@@ -1,5 +1,5 @@
-angular.module('login-controller',[]).controller('loginController', function($scope,$location,$rootScope,$http) {
-  if($rootScope.loggedUser)
+angular.module('login-controller',[]).controller('loginController', function($scope,$cookies,$location,$http) {
+  if($cookies.get("current")!=null)
   {
     $location.path('/home');
   }
@@ -12,15 +12,16 @@ angular.module('login-controller',[]).controller('loginController', function($sc
     get.then(function(response)
     {
       if(response.status ==204){
-        $scope.error = "nom d'utilisateur innexistant";
+        $scope.error = "nom d'utilisateur inexistant";
         $scope.username='';
         $scope.password='';
       }else{
         if(response.data.password == $scope.password){
-          $rootScope.loggedUser=$scope.username;
+          var d = Date.now()+1;
+          $cookies.put("current",$scope.username,{"expires":d.toString()});
           $location.path('/home');
         }else{
-          $scope.error = "nom d'utilisateur ou mot de passe incorrectes";
+          $scope.error = "nom d'utilisateur ou mot de passe incorrects";
           $scope.username='';
           $scope.password='';
         }
