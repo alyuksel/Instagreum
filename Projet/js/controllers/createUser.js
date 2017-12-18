@@ -1,4 +1,4 @@
-angular.module('createUser-controller',[]).controller('createUserController', function($scope,$cookies,$location,$http) {
+angular.module('createUser-controller',[]).controller('createUserController', function($scope,$cookies,$location,userService) {
     if($cookies.get("current")!=null)
     {
       $location.path('/home');
@@ -21,8 +21,14 @@ angular.module('createUser-controller',[]).controller('createUserController', fu
     }
 
     $scope.checkUser = function(){
-      if($scope.errors["username"] && $scope.username==''){
-        removeError("username");
+      if($scope.username){
+        userService.getUserByUsername($scope.username,function(response){
+          if(response.data!=''){
+            $scope.errors["username"]="le nom d'utilisateur existe déjà";
+          }else {
+            removeError("username");
+          }
+        });
       }
     }
 
@@ -52,7 +58,7 @@ angular.module('createUser-controller',[]).controller('createUserController', fu
       }
     }
 
-    //OTHER FUNCTIONS
+    //USERS FUNCTIONS
 
     $scope.valid = function()
     {
@@ -64,20 +70,10 @@ angular.module('createUser-controller',[]).controller('createUserController', fu
         password:sha256($scope.password),
         mail:$scope.mail
       });
-      var username = $scope.username;
-      var get = $http.get('/api/register/'+username);
-      get.then(function(response){
-        if(response.data!=''){
-          $scope.errors["username"]="le nom d'utilisateur existe déjà";
-        }else{
-          var post = $http.post('/api/createUser', data);
-          post.then(function(response){
-            console.log("success");
-            $location.path('/login');
-          },function(response){
-            $scope.error="erreur dans la saisies des informations";
-          });
-        }
-      });
+        userService.createUser(data,function(response){
+          $location.path('/login');
+        },function(response){
+          $scope.error="erreur dans la saisies des informations";
+        });
     }
   });

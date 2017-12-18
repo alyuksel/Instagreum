@@ -1,4 +1,4 @@
-var app=angular.module('myApp',['ngRoute','ngCookies','main-controller','home-controller','createUser-controller','login-controller','test-controller']);
+var app=angular.module('myApp',['ngRoute','ngCookies','main-controller','home-controller','createUser-controller','login-controller','test-controller','user-service']);
 app.config(function($routeProvider){
   $routeProvider
   .when('/home',{templateUrl:'views/home.html',controller:'homeController'})
