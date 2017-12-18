@@ -1,9 +1,13 @@
 var model = require('./db/mongo');
 var User=model.mongoose.model('User',model.userSchema);
-
 var express = require('express');
-var bodyParser = require('body-parser');;
+var bodyParser = require('body-parser');
+var fs = require('fs');
+var mime = require('mime');
+var rawbody = require('raw-body');
 var app = express();
+
+
 
 app.use(bodyParser.json());
 app.use('/js', express.static(__dirname + '/js'));
@@ -34,6 +38,12 @@ app.post('/api/createUser', function(req,res) {
     }
   })
 });
+app.post('/api/registerImage/:u', function(req,res){
+  var user = req.params.u;
+  var img = req.files.file.path;
+  var type = mime.lookup(img);
+  console.log(img+"  "+type);
+});
 app.get('/api/register/:u',function(req,res){
   var u = req.params.u;
   var user = User.findOne({username:u}).select('username').exec(function (err, doc){
@@ -55,5 +65,7 @@ app.get('/api/login/:u',function(req,res){
     }
   });
 });
+
+
 console.log("server start");
 app.listen(9090);

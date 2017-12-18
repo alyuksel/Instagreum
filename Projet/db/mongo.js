@@ -12,3 +12,8 @@ exports.userSchema=exports.mongoose.Schema({
   mail:{type:String}
   // avatar:{data:Buffer,contentType: String }
 });
+
+exports.imageSchema=exports.mongoose.Schema({
+  username:{type:String},
+  img:{data: Buffer, contentType: String}
+});
