@@ -3,8 +3,6 @@ angular.module('profile-controller',[]).controller('profileController', function
       $location.path("/login");
     }
 
-    $scope.mimetype='';
-
     var currentUser = $cookies.get("current");
     $scope.user=currentUser;
     var get = $http.get("/api/getImage/"+currentUser);
@@ -12,11 +10,7 @@ angular.module('profile-controller',[]).controller('profileController', function
     {
       console.log(res);
       $scope.mimetype=  res.data.img.contentType;
-      $scope.data = res.data.img.data.data;
-      // var file = new Blob([btoa(res.data.img.data.data)],{type : res.data.img.contentType});
-      // console.log(file);
-      // url = URL.createObjectURL(file);
-      // $scope.data = $sce.trustAsResourceUrl(url);
+      $scope.data = _arrayBufferToBase64(res.data.img.data.data);
 
     },
     function(res){
@@ -24,3 +18,12 @@ angular.module('profile-controller',[]).controller('profileController', function
     });
 
 });
+function _arrayBufferToBase64( buffer ) {
+  var binary = '';
+  var bytes = new Uint8Array( buffer );
+  var len = bytes.byteLength;
+  for (var i = 0; i < len; i++) {
+    binary += String.fromCharCode( bytes[ i ] );
+  }
+  return window.btoa( binary );
+}
