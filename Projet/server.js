@@ -1,20 +1,24 @@
 var model = require('./db/mongo');
 var User=model.mongoose.model('User',model.userSchema);
+var Img=model.mongoose.model('Img',model.imageSchema);
 var express = require('express');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 var mime = require('mime');
 var rawbody = require('raw-body');
+var multer = require('multer');
+var methodOverride = require('method-override');
 var app = express();
 
 
-
+var upload =multer({ dest: './uploads/'});
+app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(bodyParser.json());
 app.use('/js', express.static(__dirname + '/js'));
 app.use('/views', express.static(__dirname + '/views'));
 app.use('/css', express.static(__dirname + '/css'));
 app.use('/lib', express.static(__dirname + '/lib'));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ limit : '50mb',extended: true,parameterLimit: 1000000 }));
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/views/main.html');
 });
@@ -38,11 +42,33 @@ app.post('/api/createUser', function(req,res) {
     }
   })
 });
-app.post('/api/registerImage/:u', function(req,res){
+app.post('/api/registerImage/:u', upload.single('img'), function(req,res){
   var user = req.params.u;
-  var img = req.files.file.path;
-  var type = mime.lookup(img);
-  console.log(img+"  "+type);
+  var img = req.file;
+  var nImg = new Img();
+  nImg.username = user;
+  console.log(img);
+  nImg.img.data = fs.readFileSync(img.path);
+  nImg.img.contentType = img.mimetype;
+  nImg.save(function(err){
+    if (err){
+      res.send(nImg);
+    }
+    else{
+      fs.unlink(img.path);
+      res.send("Done");
+    }
+  });
+});
+app.get('/api/getImage/:u', function(req,res){
+  var u = req.params.u;
+  var img = Img.findOne({username:u}).exec(function(err,doc){
+    if(img){
+      res.send(doc);
+    }else{
+      res.send("error");
+    }
+  })
 });
 app.get('/api/register/:u',function(req,res){
   var u = req.params.u;
