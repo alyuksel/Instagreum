@@ -1,7 +1,7 @@
 angular.module('login-controller',[]).controller('loginController', function($scope,$cookies,$location,$http) {
   if($cookies.get("current")!=null)
   {
-    $location.path('/home');
+    $location.path('/profile');
   }
   $scope.password ='';
   $scope.username = '';
@@ -19,7 +19,7 @@ angular.module('login-controller',[]).controller('loginController', function($sc
         if(response.data.password == $scope.password){
           var d = Date.now()+1;
           $cookies.put("current",$scope.username,{"expires":d.toString()});
-          $location.path('/home');
+          $location.path('/profile');
         }else{
           $scope.error = "nom d'utilisateur ou mot de passe incorrects";
           $scope.username='';

@@ -7,6 +7,6 @@ angular.module('main-controller',[]).controller('mainController', function($loca
       console.log("cookies"+$cookies.get("current"));
       $cookies.remove("current");
       $scope.disco='';
-      $location.path('/test');
+      $location.path('/');
     }
 });

@@ -1,7 +1,7 @@
 angular.module('createUser-controller',[]).controller('createUserController', function($scope,$cookies,$location,userService) {
     if($cookies.get("current")!=null)
     {
-      $location.path('/home');
+      $location.path('/profile');
     }
     $scope.username ="";
     $scope.name ="";
