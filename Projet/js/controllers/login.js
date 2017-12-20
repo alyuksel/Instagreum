@@ -7,7 +7,8 @@ angular.module('login-controller',[]).controller('loginController', function($sc
   $scope.username = '';
   $scope.error='';
   $scope.hash = function(){
-    $scope.password = sha256($scope.password);
+    var pass = $scope.password;
+    pass = sha256(pass);
     var get = $http.get('/api/login/'+$scope.username);
     get.then(function(response)
     {
@@ -16,7 +17,7 @@ angular.module('login-controller',[]).controller('loginController', function($sc
         $scope.username='';
         $scope.password='';
       }else{
-        if(response.data.password == $scope.password){
+        if(response.data.password == pass){
           var d = Date.now()+1;
           $cookies.put("current",$scope.username,{"expires":d.toString()});
           $location.path('/profile');
