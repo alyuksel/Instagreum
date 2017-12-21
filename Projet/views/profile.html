@@ -1,2 +1,2 @@
 <span class="badge badge-pill badge-dark">{{user}}</span>
-<img ng-src="data:image/JPEG;base64,{{data}}" class="rounded" height="800" width="800"/>
+<img ng-show="mimetype" ng-src="data:{{mimetype}};base64,{{data}}" class="rounded" height="800" width="800"/>

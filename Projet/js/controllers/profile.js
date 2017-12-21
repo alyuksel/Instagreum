@@ -8,13 +8,16 @@ angular.module('profile-controller',[]).controller('profileController', function
     var get = $http.get("/api/getImage/"+currentUser);
     get.then(function(res)
     {
+
       console.log(res);
       $scope.mimetype=  res.data.img.contentType;
+      console.log($scope.mimetype);
       $scope.data = _arrayBufferToBase64(res.data.img.data.data);
+
 
     },
     function(res){
-      console.log(res);
+      console.log("BOOOO");
     });
 
 });

@@ -10,7 +10,7 @@ exports.userSchema=exports.mongoose.Schema({
   birthdate:{type:String},
   password:{type:String},
   mail:{type:String}
-  // avatar:{data:Buffer,contentType: String }
+  //avatar:{data:Buffer,contentType: String }
 });
 
 exports.imageSchema=exports.mongoose.Schema({

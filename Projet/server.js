@@ -63,10 +63,10 @@ app.post('/api/registerImage/:u', upload.single('img'), function(req,res){
 app.get('/api/getImage/:u', function(req,res){
   var u = req.params.u;
   var img = Img.findOne({username:u}).exec(function(err,doc){
-    if(img){
+    if(doc){
       res.send(doc);
     }else{
-      res.send("error");
+      res.status(504).send("error");
     }
   })
 });
