@@ -1,7 +1,7 @@
 angular.module('profile-controller',[]).controller('profileController', function($location,$cookies,$scope,$sce,$http) {
     if($cookies.get("current") == null){
       $location.path("/login");
-    }
+    }else{
 
     var currentUser = $cookies.get("current");
     $scope.user=currentUser;
@@ -19,14 +19,5 @@ angular.module('profile-controller',[]).controller('profileController', function
     function(res){
       console.log("BOOOO");
     });
-
-});
-function _arrayBufferToBase64( buffer ) {
-  var binary = '';
-  var bytes = new Uint8Array( buffer );
-  var len = bytes.byteLength;
-  for (var i = 0; i < len; i++) {
-    binary += String.fromCharCode( bytes[ i ] );
-  }
-  return window.btoa( binary );
 }
+});
