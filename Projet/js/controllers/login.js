@@ -1,4 +1,4 @@
-angular.module('login-controller',[]).controller('loginController', function($scope,$cookies,$location,$http) {
+angular.module('login-controller',[]).controller('loginController', function($scope,$cookies,$location,userService) {
   if($cookies.get("current")!=null)
   {
     $location.path('/profile');
@@ -9,9 +9,7 @@ angular.module('login-controller',[]).controller('loginController', function($sc
   $scope.hash = function(){
     var pass = $scope.password;
     pass = sha256(pass);
-    var get = $http.get('/api/login/'+$scope.username);
-    get.then(function(response)
-    {
+    userService.getPasswordByUsername($scope.username,function(response){
       if(response.status ==204){
         $scope.error = "nom d'utilisateur inexistant";
         $scope.username='';
@@ -27,8 +25,7 @@ angular.module('login-controller',[]).controller('loginController', function($sc
           $scope.password='';
         }
       }
-    },function(response)
-    {
+    },function(response){
       $scope.error = "le serveur ne répond pas réessayer plus tard";
       $scope.username='';
       $scope.password='';
