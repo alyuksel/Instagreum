@@ -4,7 +4,17 @@ app.config(function($routeProvider){
   .when('/profile',{templateUrl:'views/profile.html',controller:'profileController'})
   .when('/login',{templateUrl:'views/login.html',controller:'loginController'})
   .when('/create',{templateUrl:'views/createUser.html',controller:'createUserController'})
-  .when('',{templateUrl:'views/main.html',controller:''})
-  .otherwise({redirectTo:''});
+  .when('/main',{templateUrl:'views/main.html',controller:'mainController'})
+  .otherwise({redirectTo:'/main'});
 
+});
+app.controller('appController', function($location,$cookies,$scope) {
+  $scope.disco = function(){
+    return $cookies.get("current");
+  }
+    $scope.logout = function(){
+      console.log("cookies"+$cookies.get("current"));
+      $cookies.remove("current");
+      $location.path('/main');
+    }
 });

@@ -20,7 +20,7 @@ app.use('/css', express.static(__dirname + '/css'));
 app.use('/lib', express.static(__dirname + '/lib'));
 app.use(bodyParser.urlencoded({ limit : '50mb',extended: true,parameterLimit: 1000000 }));
 app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/views/main.html');
+  res.sendFile(__dirname + '/views/index.html');
 });
 
 app.post('/api/createUser', function(req,res) {
