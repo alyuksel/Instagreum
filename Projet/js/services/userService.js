@@ -10,13 +10,6 @@ angular.module("user-service",[]).factory('userService', function($http){
 	user.getPasswordByUsername = function(username,success,error) {
 				$http.get('/api/login/'+username).then(success,error);
 	  };
-	user.getImagesByUser = function(username,success,error) {
-				$http.get("/api/image/"+username).then(success,error);
-	  };
-
-	user.sendImageByUser = function(username,success,error){
-
-	};
 
 	return user;
 });

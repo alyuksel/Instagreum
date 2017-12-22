@@ -1,4 +1,4 @@
-var app=angular.module('myApp',['ngRoute','ngCookies','main-controller','profile-controller','createUser-controller','login-controller','user-service','upload-directive']);
+var app=angular.module('myApp',['ngRoute','ngCookies','main-controller','profile-controller','createUser-controller','login-controller','user-service','image-service','upload-directive']);
 app.config(function($routeProvider){
   $routeProvider
   .when('/profile',{templateUrl:'views/profile.html',controller:'profileController'})
