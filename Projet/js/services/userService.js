@@ -14,5 +14,9 @@ angular.module("user-service",[]).factory('userService', function($http){
 				$http.get("/api/getImage/"+username).then(success,error);
 	  };
 
+	user.sendImageByUser = function(username,success,error){
+			
+	};
+
 	return user;
 });

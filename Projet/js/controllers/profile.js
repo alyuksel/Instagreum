@@ -1,7 +1,7 @@
 angular.module('profile-controller',[]).controller('profileController', function($location,$cookies,$scope,$sce,userService) {
-    if($cookies.get("current") == null){
-      $location.path("/login");
-    }else{
+  if($cookies.get("current") == null){
+    $location.path("/login");
+  }else{
 
     var currentUser = $cookies.get("current");
     $scope.user=currentUser;
@@ -14,5 +14,12 @@ angular.module('profile-controller',[]).controller('profileController', function
     function(res){
       console.log("BOOOO");
     });
-}
+    $scope.uploadFile = function(){
+      var file = $scope.img;
+
+      console.log('file is ' );
+      console.log(file);
+    };
+
+  }
 });
