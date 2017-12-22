@@ -23,7 +23,7 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-app.post('/api/createUser', function(req,res) {
+app.post('/api/create/user', function(req,res) {
   if (!req.body) return res.sendStatus(400);
    var newUser=new User({
     username:req.body.username,
@@ -42,7 +42,7 @@ app.post('/api/createUser', function(req,res) {
     }
   })
 });
-app.post('/api/registerImage/:u', upload.single('img'), function(req,res){
+app.post('/api/register/image/:u', upload.single('img'), function(req,res){
   var user = req.params.u;
   var img = req.file;
   var nImg = new Img();
@@ -60,10 +60,11 @@ app.post('/api/registerImage/:u', upload.single('img'), function(req,res){
     }
   });
 });
-app.get('/api/getImage/:u', function(req,res){
+app.get('/api/image/:u', function(req,res){
   var u = req.params.u;
-  var img = Img.findOne({username:u}).exec(function(err,doc){
+  var img = Img.find({username:u}).exec(function(err,doc){
     if(doc){
+      console.log(doc);
       res.send(doc);
     }else{
       res.status(504).send("error");

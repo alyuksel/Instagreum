@@ -9,7 +9,7 @@
   </form>
 </div>
 <div class="container">
-  <span class="badge badge-pill badge-dark">{{user}}</span>
-  <br>
-  <img ng-show="mimetype" ng-src="data:{{mimetype}};base64,{{data}}" class="rounded" height="300" width="300"/>
+  <div ng-repeat = "image in images">
+  <img ng-show="image" ng-src="data:{{image.mimetype}};base64,{{image.data}}" class="rounded" height="300" width="300"/>
+  </div>
 </div>

@@ -5,17 +5,17 @@ angular.module("user-service",[]).factory('userService', function($http){
         $http.get('/api/register/'+username).then(success);
     };
   user.createUser = function(data,success,error) {
-        $http.post('/api/createUser', data).then(success,error);
+        $http.post('/api/create/user', data).then(success,error);
     };
 	user.getPasswordByUsername = function(username,success,error) {
 				$http.get('/api/login/'+username).then(success,error);
 	  };
 	user.getImagesByUser = function(username,success,error) {
-				$http.get("/api/getImage/"+username).then(success,error);
+				$http.get("/api/image/"+username).then(success,error);
 	  };
 
 	user.sendImageByUser = function(username,success,error){
-			
+
 	};
 
 	return user;
