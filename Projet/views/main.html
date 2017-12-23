@@ -1,5 +1,7 @@
 <div class="container">
   <div class="row">
-    Salut
+    <div ng-repeat = "image in images" class="col-md-3 ">
+      <label>{{image.user}}</label>
+      <img ng-show="image" ng-src="data:{{image.mimetype}};base64,{{image.data}}" class="rounded paddinPerso" height="300" width="300"/>
+    </div>
   </div>
-</div>

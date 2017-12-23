@@ -11,5 +11,8 @@ angular.module("image-service",[]).factory('imageService', function($http){
 	user.getImagesByUser = function(username,success,error) {
 				$http.get("/api/image/"+username).then(success,error);
 		};
+	user.getAllImages = function(success,error){
+				$http.get("/api/images").then(success,error);
+	};
 	return user;
 });

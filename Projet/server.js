@@ -93,6 +93,12 @@ app.get('/api/login/:u',function(req,res){
   });
 });
 
+app.get('/api/images',function(req,res){
+  var imgs = Img.find().exec(function(err,doc){
+    if(doc) res.send(doc);
+    else res.status(404).send('not found');
+  });
+});
 
 console.log("server start");
 app.listen(9090);

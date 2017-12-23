@@ -1,12 +1,11 @@
-angular.module('main-controller',[]).controller('mainController', function($location,$cookies,$scope) {
-  $scope.disco='';
-    if($cookies.get("current") != null){
-       $scope.disco='Sign Out';
-     }
-    $scope.logout = function(){
-      console.log("cookies"+$cookies.get("current"));
-      $cookies.remove("current");
-      $scope.disco='';
-      $location.path('/');
-    }
+angular.module('main-controller',[]).controller('mainController', function($location,$cookies,$scope,imageService) {
+  if($cookies.get("current")==null){
+    $location.path('/login');
+  }else{
+    imageService.getAllImages(function(res){
+      $scope.images = res.data.map(function (item){
+         return {user:item.username,mimetype:item.img.contentType,data:_arrayBufferToBase64(item.img.data.data)};
+      });
+  });
+}
 });
