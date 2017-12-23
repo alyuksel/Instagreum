@@ -15,9 +15,11 @@ angular.module('profile-controller',[]).controller('profileController', function
       console.log("BOOOO");
     });
     $scope.uploadFile = function(){
-      var file = $scope.img;
+      var file = new FormData();
       console.log($scope.img);
-      imageService.sendImageByUser($scope.user,$scope.img,function(res){
+      file.append('img',$scope.img);
+      console.log(file);
+      imageService.sendImageByUser($scope.user,file,function(res){
         console.log("succes");
       },
       function(){

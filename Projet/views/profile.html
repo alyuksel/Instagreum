@@ -9,7 +9,10 @@
   </form>
 </div>
 <div class="container">
-  <div ng-repeat = "image in images">
-  <img ng-show="image" ng-src="data:{{image.mimetype}};base64,{{image.data}}" class="rounded" height="300" width="300"/>
+  <div class="row">
+    <div ng-repeat = "image in images" class="col-md-3 ">
+    <img ng-show="image" ng-src="data:{{image.mimetype}};base64,{{image.data}}" class="rounded paddinPerso" height="300" width="300"/>
+    </div>
   </div>
+
 </div>
