@@ -8,6 +8,7 @@ var mime = require('mime');
 var rawbody = require('raw-body');
 var multer = require('multer');
 var methodOverride = require('method-override');
+const uuid = require('uuid/v1');
 var app = express();
 
 
@@ -47,6 +48,7 @@ app.post('/api/register/image/:u', upload.single('img'), function(req,res){
   var img = req.file;
   var nImg = new Img();
   nImg.username = user;
+  nImg.id = uuid();
   console.log(img);
   nImg.img.data = fs.readFileSync(img.path);
   nImg.img.contentType = img.mimetype;
@@ -98,6 +100,19 @@ app.get('/api/images',function(req,res){
     if(doc) res.send(doc);
     else res.status(404).send('not found');
   });
+});
+
+app.get('/api/images/delete/:id', function(req,res){
+  var i = req.params.id;
+  var user  = Img.find({id:i}).remove().exec(function(err,doc){
+    if(doc){
+      res.send('deleted');
+    }
+    else{
+      res.send('error');
+    }
+  });
+  
 });
 
 console.log("server start");

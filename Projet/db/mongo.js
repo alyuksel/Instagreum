@@ -15,5 +15,6 @@ exports.userSchema=exports.mongoose.Schema({
 
 exports.imageSchema=exports.mongoose.Schema({
   username:{type:String},
+  id:{type:String},
   img:{data: Buffer, contentType: String}
 });
