@@ -52,6 +52,8 @@ app.post('/api/register/image/:u', upload.single('img'), function(req,res){
   console.log(img);
   nImg.img.data = fs.readFileSync(img.path);
   nImg.img.contentType = img.mimetype;
+  nImg.like = 0;
+  nImg.publicationDate = new Date();
   nImg.save(function(err){
     if (err){
       res.send(nImg);
@@ -112,7 +114,7 @@ app.get('/api/images/delete/:id', function(req,res){
       res.send('error');
     }
   });
-  
+
 });
 
 console.log("server start");

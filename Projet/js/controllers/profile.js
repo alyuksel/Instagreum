@@ -2,7 +2,7 @@ angular.module('profile-controller',[]).controller('profileController', function
   $scope.getProfileImages = function(){
     imageService.getImagesByUser(currentUser,function(res){
       $scope.images = res.data.map(function (item){
-         return {mimetype:item.img.contentType,data:_arrayBufferToBase64(item.img.data.data)};
+         return {mimetype:item.img.contentType,data:_arrayBufferToBase64(item.img.data.data),date:item.publicationDate,like:item.like};
       });
     },
     function(res){

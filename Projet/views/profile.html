@@ -1,18 +1,33 @@
 <div class="container">
   <h3>Welcome on your main page {{user}}</h3>
-  <form>
-    <div class="form-group">
-      <label>  Download your image !  </label>
-      <input type="file" file-model = "img" class="form-control-file" >
-      <button ng-click="uploadFile()" class = "btn btn-primary">Upload File</button>
-    </div>
-  </form>
+
+<br>
+
+<div class="input-group">
+  <span class="input-group-addon" id="basic-addon3">Add Photos :</span>
+  <input type="file" file-model = "img" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+  <button ng-disabled="!img" ng-click="uploadFile()" class = "input-group-addon">Upload</button>
 </div>
+
+</div> <br>
 <div class="container">
-  <div class="row">
-    <div ng-repeat = "image in images" class="col-md-3 ">
-      <img ng-show="image" ng-src="data:{{image.mimetype}};base64,{{image.data}}" class="rounded paddinPerso" height="300" width="300"/>
+    <div class="card-deck">
+      <div class="row ">
+        <div class="col-xs-4 col-md-4 col-lg-4 mb-4" ng-repeat = "image in images">
+          <div class="card h-100">
+             <img ng-show="image" ng-src="data:{{image.mimetype}};base64,{{image.data}}" class="card-img-top" alt="Card image cap"/>
+             <div class="card-body p-1">
+               <p class="card-text">#pnl izi 92izo dans la maison</p>
+                <i >Like : {{image.like}}</i>
+             </div>
+             <div class="card-footer">
+               <small class="text-muted">Updated on : {{image.date}}</small>
+             </div>
+           </div>
+        </div>
+      </div>
     </div>
-  </div>
+
+
 
 </div>
