@@ -113,7 +113,7 @@ app.get('/api/images/delete/:id', function(req,res){
       res.send('deleted');
     }
     else{
-      res.send('error');
+      res.status(204).send('error');
     }
   });
 
@@ -129,6 +129,21 @@ app.get('/api/images/like/:u', function(req,res){
       res.send('error');
     }
   });
+});
+
+app.post('/api/images/like/:u/:id', function(req,res){
+  var user = req.params.u;
+  var id = req.params.id;
+  var nLike = new Likes();
+  nLike.username = user;
+  nLike.photoId = id;
+  nLike.save (function(err){
+    if(err){
+      res.send("error")
+    }else{
+      res.send(nLike);
+    }
+  })
 });
 
 console.log("server start");

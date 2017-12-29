@@ -14,5 +14,13 @@ angular.module("image-service",[]).factory('imageService', function($http){
 	user.getAllImages = function(success,error){
 				$http.get("/api/images").then(success,error);
 	};
+
+	user.isLiked = function(username,success,error){
+				$http.get("api/images/like/"+username).then(success,error);
+	};
+
+	user.likeImage = function(username,id,success,error){
+			$http.post("/api/images/like/"+username+"/"+id).then(success,error);
+	};
 	return user;
 });
