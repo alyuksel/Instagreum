@@ -1,6 +1,8 @@
 var model = require('./db/mongo');
 var User=model.mongoose.model('User',model.userSchema);
 var Img=model.mongoose.model('Img',model.imageSchema);
+var Likes = model.mongoose.model('Likes',model.likeSchema);
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var fs = require('fs');
@@ -115,6 +117,18 @@ app.get('/api/images/delete/:id', function(req,res){
     }
   });
 
+});
+
+app.get('/api/images/like/:u', function(req,res){
+  var user = req.params.u;
+  var like  = Likes.find({username:user}).select('photoId').exec(function(err,doc){
+    if(doc){
+      res.send(doc);
+    }
+    else{
+      res.send('error');
+    }
+  });
 });
 
 console.log("server start");

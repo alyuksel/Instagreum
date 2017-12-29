@@ -4,7 +4,7 @@ angular.module('main-controller',[]).controller('mainController', function($loca
   }else{
     imageService.getAllImages(function(res){
       $scope.images = res.data.map(function (item){
-         return {user:item.username,mimetype:item.img.contentType,data:_arrayBufferToBase64(item.img.data.data)};
+         return {user:item.username,mimetype:item.img.contentType,data:_arrayBufferToBase64(item.img.data.data),id:item.id};
       });
   });
 }

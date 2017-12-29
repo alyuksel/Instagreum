@@ -21,3 +21,8 @@ exports.imageSchema=exports.mongoose.Schema({
   like:{type:Number},
   commentaire:{type:String}
 });
+
+exports.likeSchema=exports.mongoose.Schema({
+  username:{type:String},
+  photoId:{type:String}
+});
