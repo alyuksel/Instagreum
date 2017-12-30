@@ -146,5 +146,14 @@ app.post('/api/images/like/:u/:id', function(req,res){
   })
 });
 
+app.post('/api/images/addLike/:id',function(req,res){
+  var idP = req.params.id;
+  var photo = Img.findOne({id:idP}).exec(function(err,doc){
+    doc.like = doc.like + 1;
+    doc.save();
+  });
+  res.send("OK")
+});
+
 console.log("server start");
 app.listen(9090);

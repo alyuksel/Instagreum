@@ -1,4 +1,4 @@
-angular.module('main-controller',[]).controller('mainController', function($location,$cookies,$scope,imageService) {
+angular.module('main-controller',[]).controller('mainController', function($route,$location,$cookies,$scope,imageService) {
   if($cookies.get("current")==null){
     $location.path('/login');
   }else{
@@ -28,7 +28,10 @@ angular.module('main-controller',[]).controller('mainController', function($loca
         console.log(res);
     },function(err){
         console.log("erreur");
+    },function(res){
+      console.log(res);
     });
+    $route.reload();
   }
 }
 });
