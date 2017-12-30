@@ -53,6 +53,7 @@ app.post('/api/register/image/:u', upload.single('img'), function(req,res){
   nImg.img.data = fs.readFileSync(img.path);
   nImg.img.contentType = img.mimetype;
   nImg.like = 0;
+  nImg.commentaire = '';
   nImg.publicationDate = new Date();
   nImg.save(function(err){
     if (err){
@@ -64,6 +65,30 @@ app.post('/api/register/image/:u', upload.single('img'), function(req,res){
     }
   });
 });
+
+app.put('/api/images/comment/:id', function(req,res){
+  var imgId = req.params.id;
+  var comment = req.body.comment;
+  var img = Img.find({id:imgId}).exec(function(err,doc){
+    if(doc){
+      doc.forEach(function(image) {
+        console.log("saluut");
+        console.log(image);
+        image.commentaire = comment;
+          image.save(function(err){
+            if (err){
+            }
+            else{
+              res.send(image);
+            }
+          });
+      });
+    }else{
+      res.status(504).send("error");
+    }
+  });
+});
+
 app.get('/api/image/:u', function(req,res){
   var u = req.params.u;
   var img = Img.find({username:u}).exec(function(err,doc){

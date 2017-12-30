@@ -14,5 +14,12 @@ angular.module("image-service",[]).factory('imageService', function($http){
 	user.getAllImages = function(success,error){
 				$http.get("/api/images").then(success,error);
 	};
+
+	user.updateComment = function(user,image,success,error){
+		console.log(image);
+		var data = new FormData();
+		data.append('comment',image.commentaire);
+		$http.put("/api/images/comment/"+image.id,{"comment":image.commentaire}).then(success,error);
+	};
 	return user;
 });
