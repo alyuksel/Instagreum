@@ -170,8 +170,12 @@ app.post('/api/images/comments',function(req,res){
   }
 });
 
-app.get('/api/images/comments/:id',function(req,res){
-    
+app.get('/api/images/comments',function(req,res){
+   var coms = Comments.find().exec(function(err,doc){
+     if(doc){
+       res.send(doc);
+     }
+   });
 });
 
 console.log("server start");

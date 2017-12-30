@@ -5,33 +5,46 @@ angular.module('main-controller',[]).controller('mainController', function($rout
     var currentUser = $cookies.get("current");
     imageService.getAllImages(function(res){
       $scope.images = res.data.map(function (item){
-         return {user:item.username,mimetype:item.img.contentType,data:_arrayBufferToBase64(item.img.data.data),id:item.id};
+        return {user:item.username,mimetype:item.img.contentType,data:_arrayBufferToBase64(item.img.data.data),id:item.id};
       });
-  });
- $scope.result='';
- imageService.isLiked(currentUser,function(res){
-      $scope.result =  res.data;
-  },function(err){
-      $scope.result = [];
-  });
-
-  $scope.verify = function(id){
-    var res = true;
-    for(i of $scope.result){
-      if(i.photoId == id) res = false;
-    }
-    return res;
-  }
-
-  $scope.like = function(id){
-    imageService.likeImage(currentUser,id,function(res){
-        console.log(res);
-    },function(err){
-        console.log("erreur");
-    },function(res){
-      console.log(res);
     });
-    $route.reload();
+
+    $scope.result='';
+    imageService.isLiked(currentUser,function(res){
+      $scope.result =  res.data;
+    },function(err){
+      $scope.result = [];
+    });
+
+    imageService.getComments(function(res){
+      $scope.comments = res.data.map(function(item){
+        return {username : item.username, id:item.photoId, comment:item.comment};
+      });
+    },function(err){
+        console.log(err);
+    });
+
+    $scope.verify = function(id){
+      var res = true;
+      for(i of $scope.result){
+        if(i.photoId == id) res = false;
+      }
+      return res;
+    };
+
+    $scope.like = function(id){
+      imageService.likeImage(currentUser,id,function(res){
+        console.log(res);
+      },function(err){
+        console.log("erreur");
+      },function(res){
+        console.log(res);
+      });
+      $route.reload();
+    };
+
+    $scope.iscomment = function(idP,idC){
+      return (idP == idC);
+    }
   }
-}
 });

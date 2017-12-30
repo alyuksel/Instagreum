@@ -23,5 +23,9 @@ angular.module("image-service",[]).factory('imageService', function($http){
 			$http.post("/api/images/like/"+username+"/"+id).then(success,error);
 			$http.post("/api/images/addLike/"+id).then(successInc);
 	};
+
+	user.getComments = function(success,error){
+			$http.get("api/images/comments").then(success,error);
+	};
 	return user;
 });
