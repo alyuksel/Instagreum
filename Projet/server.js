@@ -1,7 +1,9 @@
 var model = require('./db/mongo');
+
 var User=model.mongoose.model('User',model.userSchema);
 var Img=model.mongoose.model('Img',model.imageSchema);
 var Likes = model.mongoose.model('Likes',model.likeSchema);
+var Comments = model.mongoose.model('Comments',model.commentsSchema);
 
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -153,6 +155,23 @@ app.post('/api/images/addLike/:id',function(req,res){
     doc.save();
   });
   res.send("OK")
+});
+
+app.post('/api/images/comments',function(req,res){
+  if(!req.body){
+    res.status(204).send("no data");
+  }else{
+    var nCom = new Comments();
+    nCom.username = req.body.username;
+    nCom.photoId = req.body.id;
+    nCom.comment = req.body.comment;
+    nCom.save();
+    res.send("OK");
+  }
+});
+
+app.get('/api/images/comments/:id',function(req,res){
+    
 });
 
 console.log("server start");

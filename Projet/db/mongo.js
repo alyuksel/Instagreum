@@ -26,3 +26,9 @@ exports.likeSchema=exports.mongoose.Schema({
   username:{type:String},
   photoId:{type:String}
 });
+
+exports.commentsSchema = exports.mongoose.Schema({
+  username:{type:String},
+  photoId:{type:String},
+  comment:{type:String}
+});
