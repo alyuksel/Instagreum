@@ -15,6 +15,10 @@ angular.module("image-service",[]).factory('imageService', function($http){
 				$http.get("/api/images").then(success,error);
 	};
 
+	user.deleteImage = function(username,image,success,error){
+		$http.get("/api/images").then(success,error);
+	}
+
 	user.updateComment = function(user,image,success,error){
 		console.log(image);
 		var data = new FormData();

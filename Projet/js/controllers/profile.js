@@ -6,6 +6,10 @@ angular.module('profile-controller',[]).controller('profileController', function
     return $scope.isEditMode ? "Valider" : "Edition";
   }
 
+  $scope.changeMode = function(){
+    $scope.isEditMode = !$scope.isEditMode;
+  }
+
   $scope.getProfileImages = function(){
     imageService.getImagesByUser(currentUser,function(res){
       $scope.images = res.data.map(function (item){
@@ -16,6 +20,16 @@ angular.module('profile-controller',[]).controller('profileController', function
     function(res){
       console.log("Cannot retrieve images");
     });
+  }
+
+  $scope.deleteImage = function(image){
+    console.log("izi");
+  /*  imageService.deleteImage(currentUser,image,function(res){
+
+    },
+    function(err){
+
+    });*/
   }
 
   $scope.uploadFile = function(){
@@ -30,10 +44,6 @@ angular.module('profile-controller',[]).controller('profileController', function
       console.log("Error uploading file");
     });
   };
-
-  $scope.changeMode = function(){
-    $scope.isEditMode = !$scope.isEditMode;
-  }
 
   $scope.updateComment = function(img){
     imageService.updateComment($scope.user,img,function(res){
