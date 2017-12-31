@@ -8,13 +8,12 @@ app.config(function($routeProvider){
   .otherwise({redirectTo:'/main'});
 
 });
-app.controller('appController', function($location,$cookies,$scope) {
+app.controller('appController', function($location,$cookies,$scope,$route) {
   $scope.disco = function(){
     return $cookies.get("current");
   }
     $scope.logout = function(){
-      console.log("cookies"+$cookies.get("current"));
       $cookies.remove("current");
-      $location.path('/main');
+      $route.reload();
     }
 });

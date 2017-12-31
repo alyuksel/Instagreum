@@ -15,6 +15,7 @@ angular.module("image-service",[]).factory('imageService', function($http){
 				$http.get("/api/images").then(success,error);
 	};
 
+<<<<<<< HEAD
 
 	user.updateComment = function(user,image,success,error){
 		console.log(image);
@@ -23,6 +24,8 @@ angular.module("image-service",[]).factory('imageService', function($http){
 		$http.put("/api/images/comment/"+image.id,{"comment":image.commentaire}).then(success,error);
 	};
 
+=======
+>>>>>>> acceuil
 	user.isLiked = function(username,success,error){
 				$http.get("api/images/like/"+username).then(success,error);
 	};

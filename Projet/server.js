@@ -1,6 +1,10 @@
 var model = require('./db/mongo');
+
 var User=model.mongoose.model('User',model.userSchema);
 var Img=model.mongoose.model('Img',model.imageSchema);
+var Likes = model.mongoose.model('Likes',model.likeSchema);
+var Comments = model.mongoose.model('Comments',model.commentsSchema);
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var fs = require('fs');
@@ -136,10 +140,67 @@ app.get('/api/images/delete/:id', function(req,res){
       res.send('deleted');
     }
     else{
-      res.send('error');
+      res.status(204).send('error');
     }
   });
 
+});
+
+app.get('/api/images/like/:u', function(req,res){
+  var user = req.params.u;
+  var like  = Likes.find({username:user}).select('photoId').exec(function(err,doc){
+    if(doc){
+      res.send(doc);
+    }
+    else{
+      res.send('error');
+    }
+  });
+});
+
+app.post('/api/images/like/:u/:id', function(req,res){
+  var user = req.params.u;
+  var id = req.params.id;
+  var nLike = new Likes();
+  nLike.username = user;
+  nLike.photoId = id;
+  nLike.save (function(err){
+    if(err){
+      res.send("error")
+    }else{
+      res.send(nLike);
+    }
+  })
+});
+
+app.post('/api/images/addLike/:id',function(req,res){
+  var idP = req.params.id;
+  var photo = Img.findOne({id:idP}).exec(function(err,doc){
+    doc.like = doc.like + 1;
+    doc.save();
+  });
+  res.send("OK")
+});
+
+app.post('/api/images/comments',function(req,res){
+  if(!req.body){
+    res.status(204).send("no data");
+  }else{
+    var nCom = new Comments();
+    nCom.username = req.body.username;
+    nCom.photoId = req.body.id;
+    nCom.comment = req.body.comment;
+    nCom.save();
+    res.send("OK");
+  }
+});
+
+app.get('/api/images/comments',function(req,res){
+   var coms = Comments.find().exec(function(err,doc){
+     if(doc){
+       res.send(doc);
+     }
+   });
 });
 
 console.log("server start");

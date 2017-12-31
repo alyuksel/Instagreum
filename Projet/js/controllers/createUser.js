@@ -2,7 +2,7 @@ angular.module('createUser-controller',[]).controller('createUserController', fu
     if($cookies.get("current")!=null)
     {
       $location.path('/profile');
-    }
+    }else{
     $scope.username ="";
     $scope.name ="";
     $scope.firstname="";
@@ -75,5 +75,6 @@ angular.module('createUser-controller',[]).controller('createUserController', fu
         },function(response){
           $scope.error="erreur dans la saisies des informations";
         });
+    }
     }
   });
