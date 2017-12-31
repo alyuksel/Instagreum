@@ -2,6 +2,10 @@ angular.module('profile-controller',[]).controller('profileController', function
 
   $scope.isEditMode = false;
 
+  $scope.editionMessage = function(){
+    return $scope.isEditMode ? "Valider" : "Edition";
+  }
+
   $scope.getProfileImages = function(){
     imageService.getImagesByUser(currentUser,function(res){
       $scope.images = res.data.map(function (item){
@@ -10,7 +14,7 @@ angular.module('profile-controller',[]).controller('profileController', function
       });
     },
     function(res){
-      console.log("BOOOO");
+      console.log("Cannot retrieve images");
     });
   }
 
@@ -21,22 +25,19 @@ angular.module('profile-controller',[]).controller('profileController', function
     console.log(file);
     imageService.sendImageByUser($scope.user,file,function(res){
       $scope.getProfileImages();
-      console.log("succes");
     },
     function(){
-      console.log("echec");
+      console.log("Error uploading file");
     });
   };
 
   $scope.changeMode = function(){
     $scope.isEditMode = !$scope.isEditMode;
-    console.log($scope.isEditMode);
   }
 
   $scope.updateComment = function(img){
     imageService.updateComment($scope.user,img,function(res){
-      location.reload();
-      console.log("commentaire mis a jour");
+      $scope.getProfileImages();
     },
   function(err){
     console.log("echec commentaire");
@@ -51,8 +52,5 @@ angular.module('profile-controller',[]).controller('profileController', function
     $scope.user=currentUser;
     $scope.getProfileImages();
   }
-
-
-
 
 });
