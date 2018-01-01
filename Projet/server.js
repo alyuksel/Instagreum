@@ -135,7 +135,7 @@ app.get('/api/images',function(req,res){
 
 app.get('/api/images/delete/:id', function(req,res){
   var i = req.params.id;
-  var user  = Img.find({id:i}).remove().exec(function(err,doc){
+  var img  = Img.find({id:i}).remove().exec(function(err,doc){
     if(doc){
       res.send('deleted');
     }

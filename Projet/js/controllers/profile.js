@@ -24,12 +24,9 @@ angular.module('profile-controller',[]).controller('profileController', function
 
   $scope.deleteImage = function(image){
     console.log("izi");
-  /*  imageService.deleteImage(currentUser,image,function(res){
-
-    },
-    function(err){
-
-    });*/
+    imageService.deleteImage(image, function(){
+      $scope.getProfileImages();
+    })
   }
 
   $scope.uploadFile = function(){
