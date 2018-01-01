@@ -25,14 +25,14 @@
 
           <div class="card h-100">
              <img ng-show="image" ng-src="data:{{image.mimetype}};base64,{{image.data}}" class="card-img-top" alt="Card image cap"/>
-             <div class="card-body">
-               <p style="font-size:14px"class="card-text" ng-show="!isEditMode" >{{image.commentaire}}</p>
+             <div class="my-card-body">
+               <p style="font-size:15px; color:#36759f;"class="card-text" ng-show="!isEditMode" >{{image.commentaire}}</p>
                <textarea ng-blur="updateComment(image)"class="form-control" ng-model="image.commentaire" ng-show = "isEditMode">{{image.commentaire}}</textarea>
              </div>
              <div class="pl-2">
                <i class="fa fa-thumbs-o-up" aria-hidden="true"> {{image.like}}</i>
              </div>
-             <div class="card-footer">
+             <div class="my-card-footer">
                <small class="text-muted">Updated on : {{image.date}}</small>
              </div>
            </div>

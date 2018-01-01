@@ -1,17 +1,39 @@
+
+<div class="jumbotron">
+      <div class="container">
+        <h1 class="display-3">InstaGreum !</h1>
+        <p>Bienvenue sur le meilleur site de partage de Photos. Partagez vos meilleurs moments avec vos amis. Amusez vous, éclatez vous !</p>
+        <p><a ng-show = "!disco()" class="btn btn-primary btn-lg" href="#!/login" role="button">Commencer »</a></p>
+      </div>
+    </div>
+
 <div class="container">
-  <div class="row">
-    <div ng-repeat = "image in images" class="col-md-3 ">
-      <label>{{image.user}}</label>
-      <img ng-show="image" ng-src="data:{{image.mimetype}};base64,{{image.data}}" class="rounded paddinPerso" width="100%"/>
-      <button type="submit" ng-show="verify(image.id)" ng-click="like(image.id)" class="btn btn-danger"><3</button>
-      <div class="row">
-        <div ng-repeat="com in comments">
-          <div ng-show="iscomment(image.id,com.id)">
-            <label >{{com.username}}</label>
-            <small>{{com.comment}}</small>
-          </div/>
+    <div class="card-deck">
+      <div class="row col-12">
+        <div class="col-4 col-md-4 col-lg-4 mb-5" ng-repeat = "image in images">
+          <div class="card h-100">
+            <div class="my-card-header h-10">
+                <label class="font-weight-bold text-uppercase">{{image.user}}</label>
+            </div>
+             <img ng-show="image" ng-src="data:{{image.mimetype}};base64,{{image.data}}" class="card-img-top" alt="Card image cap"/>
+             <div class="my-card-body">
+               <p style="font-size:16px; color:#36759f"class="card-text" >{{image.commentaire}}</p>
+               <!-- <textarea ng-blur="updateComment(image)"class="form-control" ng-model="image.commentaire" ng-show = "isEditMode">{{image.commentaire}}</textarea> -->
+             </div>
+             <div class="pl-2 pb-1 pr-2">
+               <i class="fa fa-thumbs-o-up" aria-hidden="true"> {{image.like}}</i>
+               <button type="button" class="float-sm-right"
+                       ng-class="{'btn btn-outline-danger btn-sm':verify(image.id)==false,'btn btn-outline-primary btn-sm':verify(image.id)}"
+                       ng-click="like(image.id)"
+                       ng-show="disco()">
+                       Like !</button>
+             </div>
+             <div class="my-card-footer">
+               <small class="text-muted">Added on : {{image.date}}</small>
+             </div>
+           </div>
         </div>
       </div>
     </div>
-  </div>
+
 </div>

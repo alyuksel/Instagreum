@@ -35,9 +35,7 @@ angular.module('profile-controller',[]).controller('profileController', function
 
   $scope.uploadFile = function(){
     var file = new FormData();
-    console.log($scope.img);
     file.append('img',$scope.img);
-    console.log(file);
     imageService.sendImageByUser($scope.user,file,function(res){
       $scope.setServerLabel(true,"Fichier téléchargé");
       $scope.getProfileImages();

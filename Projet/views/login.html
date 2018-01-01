@@ -1,14 +1,17 @@
 <!-- TODO : Page disponible uniquement en entrant l'url dans le navigateur pour l'instant  -->
-<form >
-  <div class="form-group">
-    <label >Username</label>
-    <input type="Username" class="form-control" ng-model="username"   placeholder="Enter username">
-    <span class="badge badge-danger" ng-show="error">{{error}}</span>
-  </div>
-  <div class="form-group">
-    <label >Password</label>
-    <input type="password" class="form-control" ng-model="password"  placeholder="Password">
-    <small> vous ne posseder pas de compte ? <a href="#!/create"> Inscrivez vous !</a> </small>
-  </div>
-  <button type="submit" ng-click="hash()" class="btn btn-primary">Submit</button>
-</form>
+<div class="container">
+  <form >
+    <div class="form-group">
+      <label >Username</label>
+      <input type="Username" class="form-control" ng-model="username"   placeholder="Enter username">
+      <span class="badge badge-danger" ng-show="error">{{error}}</span>
+    </div>
+    <div class="form-group">
+      <label >Password</label>
+      <input type="password" class="form-control" ng-model="password"  placeholder="Password">
+      <small> vous ne posseder pas de compte ? <a href="#!/create"> Inscrivez vous !</a> </small>
+    </div>
+    <button type="submit" ng-click="hash()" class="btn btn-primary">Submit</button>
+  </form>
+
+</div>

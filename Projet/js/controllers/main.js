@@ -1,11 +1,12 @@
 angular.module('main-controller',[]).controller('mainController', function($route,$location,$cookies,$scope,imageService) {
-  if($cookies.get("current")==null){
-    $location.path('/login');
-  }else{
+  $scope.disco = function(){
+    return $cookies.get("current");
+  }
     var currentUser = $cookies.get("current");
     imageService.getAllImages(function(res){
       $scope.images = res.data.map(function (item){
-        return {user:item.username,mimetype:item.img.contentType,data:_arrayBufferToBase64(item.img.data.data),id:item.id};
+        return {user:item.username,mimetype:item.img.contentType,data:_arrayBufferToBase64(item.img.data.data),
+                date:item.publicationDate,id:item.id,like:item.like,commentaire:item.commentaire,isLiked: false };
       });
     });
 
@@ -33,18 +34,11 @@ angular.module('main-controller',[]).controller('mainController', function($rout
     };
 
     $scope.like = function(id){
-      imageService.likeImage(currentUser,id,function(res){
-        console.log(res);
-      },function(err){
-        console.log("erreur");
-      },function(res){
-        console.log(res);
-      });
+      imageService.likeImage(currentUser,id));
       $route.reload();
     };
 
     $scope.iscomment = function(idP,idC){
       return (idP == idC);
     }
-  }
 });
