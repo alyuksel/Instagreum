@@ -1,4 +1,4 @@
-var app=angular.module('myApp',['ngRoute','ngCookies','main-controller','profile-controller','createUser-controller','login-controller','user-service','image-service','upload-directive']);
+var app=angular.module('myApp',['ngRoute','ngCookies','main-controller','profile-controller','popconfirm_module','createUser-controller','login-controller','user-service','image-service','upload-directive']);
 app.config(function($routeProvider){
   $routeProvider
   .when('/profile',{templateUrl:'views/profile.html',controller:'profileController'})
@@ -8,13 +8,12 @@ app.config(function($routeProvider){
   .otherwise({redirectTo:'/main'});
 
 });
-app.controller('appController', function($location,$cookies,$scope) {
+app.controller('appController', function($location,$cookies,$scope,$route) {
   $scope.disco = function(){
     return $cookies.get("current");
   }
     $scope.logout = function(){
-      console.log("cookies"+$cookies.get("current"));
       $cookies.remove("current");
-      $location.path('/main');
+      $route.reload();
     }
 });

@@ -2,7 +2,7 @@ angular.module('login-controller',[]).controller('loginController', function($sc
   if($cookies.get("current")!=null)
   {
     $location.path('/profile');
-  }
+  }else{
   $scope.password ='';
   $scope.username = '';
   $scope.error='';
@@ -32,4 +32,5 @@ angular.module('login-controller',[]).controller('loginController', function($sc
     });
 
   }
+}
 });

@@ -2,6 +2,16 @@
   <div class="row">
     <div ng-repeat = "image in images" class="col-md-3 ">
       <label>{{image.user}}</label>
-      <img ng-show="image" ng-src="data:{{image.mimetype}};base64,{{image.data}}" class="rounded paddinPerso" height="300" width="300"/>
+      <img ng-show="image" ng-src="data:{{image.mimetype}};base64,{{image.data}}" class="rounded paddinPerso" width="100%"/>
+      <button type="submit" ng-show="verify(image.id)" ng-click="like(image.id)" class="btn btn-danger"><3</button>
+      <div class="row">
+        <div ng-repeat="com in comments">
+          <div ng-show="iscomment(image.id,com.id)">
+            <label >{{com.username}}</label>
+            <small>{{com.comment}}</small>
+          </div/>
+        </div>
+      </div>
     </div>
   </div>
+</div>
