@@ -12,13 +12,14 @@
 <button type="button" ng-click="changeMode()"
         ng-class="{'btn btn-outline-success':isEditMode,'btn btn-outline-primary':!isEditMode}">{{editionMessage()}}</button>
 
-
+<span ng-show="serverResponse" ng-class="{'badge badge-success':serverResponse.isSuccess==true,'badge badge-danger':serverResponse.isSuccess==false}">
+  {{serverResponse.message}}</span>
 
 </div> <br>
 <div class="container">
     <div class="card-deck">
       <div class="row col-12">
-        <div class="col-4 col-md-4 col-lg-4 mb-4" ng-repeat = "image in images">
+        <div class="col-4 col-md-4 col-lg-4 mb-5" ng-repeat = "image in images">
           <i class="fa fa-trash-o fa-2x ml-3" style="cursor: pointer;" aria-hidden="true"
               popconfirm data-confirm-content="de supprimer vouloir supprimer cette photo"  ng-click="deleteImage(image)" ng-show="isEditMode"></i>
 

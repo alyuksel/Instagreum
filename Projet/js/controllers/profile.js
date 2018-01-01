@@ -1,12 +1,17 @@
 angular.module('profile-controller',[]).controller('profileController', function($location,$cookies,$scope,$sce,userService,imageService) {
 
+  $scope.serverResponse={};
   $scope.isEditMode = false;
-
+  $scope.setServerLabel = function(isSucces, message){
+    $scope.serverResponse.isSuccess = isSucces;
+    $scope.serverResponse.message = message;
+  }
   $scope.editionMessage = function(){
     return $scope.isEditMode ? "Valider" : "Edition";
   }
 
   $scope.changeMode = function(){
+    $scope.serverResponse={};
     $scope.isEditMode = !$scope.isEditMode;
   }
 
@@ -18,12 +23,11 @@ angular.module('profile-controller',[]).controller('profileController', function
       });
     },
     function(res){
-      console.log("Cannot retrieve images");
+      $scope.setServerLabel(false,"Erreur lorsque du chargement des images");
     });
   }
 
   $scope.deleteImage = function(image){
-    console.log("izi");
     imageService.deleteImage(image, function(){
       $scope.getProfileImages();
     })
@@ -35,10 +39,11 @@ angular.module('profile-controller',[]).controller('profileController', function
     file.append('img',$scope.img);
     console.log(file);
     imageService.sendImageByUser($scope.user,file,function(res){
+      $scope.setServerLabel(true,"Fichier téléchargé");
       $scope.getProfileImages();
     },
     function(){
-      console.log("Error uploading file");
+      $scope.setServerLabel(false,"Echec du transfert de fichier");
     });
   };
 
@@ -47,7 +52,7 @@ angular.module('profile-controller',[]).controller('profileController', function
       $scope.getProfileImages();
     },
   function(err){
-    console.log("echec commentaire");
+    $scope.setServerLabel(false,"Echec mise a jour description");
   });
   }
 

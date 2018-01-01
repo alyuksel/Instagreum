@@ -97,7 +97,6 @@ app.get('/api/image/:u', function(req,res){
   var u = req.params.u;
   var img = Img.find({username:u}).exec(function(err,doc){
     if(doc){
-      console.log(doc);
       res.send(doc);
     }else{
       res.status(504).send("error");
