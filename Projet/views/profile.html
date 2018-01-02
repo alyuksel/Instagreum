@@ -7,13 +7,13 @@
   <span class="input-group-addon" id="basic-addon3">Add Photos :</span>
   <input type="file" file-model = "img" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
   <button ng-disabled="!img" ng-click="uploadFile()" class = "input-group-addon">Upload</button>
-</div><br>
-
+</div>
+<span ng-show="serverResponse" ng-class="{'badge badge-success':serverResponse.isSuccess==true,'badge badge-danger':serverResponse.isSuccess==false}">
+  {{serverResponse.message}}</span><br>
 <button type="button" ng-click="changeMode()"
         ng-class="{'btn btn-outline-success':isEditMode,'btn btn-outline-primary':!isEditMode}">{{editionMessage()}}</button>
 
-<span ng-show="serverResponse" ng-class="{'badge badge-success':serverResponse.isSuccess==true,'badge badge-danger':serverResponse.isSuccess==false}">
-  {{serverResponse.message}}</span>
+
 
 </div> <br>
 <div class="container">
