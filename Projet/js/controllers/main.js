@@ -14,6 +14,7 @@ angular.module('main-controller',[]).controller('mainController', function($rout
     }
 
     $scope.result='';
+    $scope.com = '';
     $scope.isLiked = function(){
       imageService.isLiked(currentUser,function(res){
         $scope.result =  res.data;
@@ -30,6 +31,19 @@ angular.module('main-controller',[]).controller('mainController', function($rout
       },function(err){
           console.log(err);
       });
+    }
+
+    $scope.addComment = function(pId){
+      if($scope.com != ''){
+        console.log($scope.com );
+      var data = {username:currentUser,id:pId,comment:$scope.com};
+      imageService.addComment(data,function(res){
+        console.log(res);
+      },function(err){
+        console.log(err);
+      });
+      }
+      $scope.com = '';
     }
 
     $scope.verify = function(id){

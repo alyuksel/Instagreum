@@ -40,5 +40,9 @@ angular.module("image-service",[]).factory('imageService', function($http){
 	img.getComments = function(success,error){
 			$http.get("api/images/comments").then(success,error);
 	};
+
+	img.addComment = function(data,success,error){
+			$http.post("api/images/comments",data).then(success,error);
+	};
 	return img;
 });
