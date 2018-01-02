@@ -65,7 +65,7 @@ app.post('/api/register/image/:u', upload.single('img'), function(req,res){
     }
     else{
       fs.unlink(img.path);
-      res.send("Done");
+      res.send(nImg);
     }
   });
 });
@@ -76,19 +76,18 @@ app.put('/api/images/comment/:id', function(req,res){
   var img = Img.find({id:imgId}).exec(function(err,doc){
     if(doc){
       doc.forEach(function(image) {
-        console.log("saluut");
-        console.log(image);
         image.commentaire = comment;
           image.save(function(err){
             if (err){
+              res.status(504).send("Error updating comment");
             }
             else{
-              res.send(image);
+              res.status(200).send(image);
             }
           });
       });
     }else{
-      res.status(504).send("error");
+      res.status(504).send("File not found");
     }
   });
 });
@@ -136,10 +135,10 @@ app.get('/api/images/delete/:id', function(req,res){
   var i = req.params.id;
   var img  = Img.find({id:i}).remove().exec(function(err,doc){
     if(doc){
-      res.send('deleted');
+      res.status(200).send('deleted');
     }
     else{
-      res.status(204).send('error');
+      res.status(500).send('error');
     }
   });
 
@@ -157,7 +156,7 @@ app.get('/api/images/like/:u', function(req,res){
   });
 });
 
-app.post('/api/images/like/:u/:id', function(req,res){
+app.put('/api/images/likes/add/:id/:u', function(req,res){
   var user = req.params.u;
   var id = req.params.id;
   var nLike = new Likes();
@@ -165,20 +164,18 @@ app.post('/api/images/like/:u/:id', function(req,res){
   nLike.photoId = id;
   nLike.save (function(err){
     if(err){
-      res.send("error")
+      res.status(500).send("Error while adding like in Like schema");
     }else{
-      res.send(nLike);
+        var photo = Img.findOne({id:id}).exec(function(err,doc){
+          if(err) res.status(500).send("Image not found");
+          else{
+            doc.like = doc.like + 1;
+            doc.save();
+            res.status(200).send(doc);
+          }
+      });
     }
-  })
-});
-
-app.post('/api/images/likes/add/:id',function(req,res){
-  var idP = req.params.id;
-  var photo = Img.findOne({id:idP}).exec(function(err,doc){
-    doc.like = doc.like + 1;
-    doc.save();
   });
-  res.send("OK")
 });
 
 app.post('/api/images/comments',function(req,res){

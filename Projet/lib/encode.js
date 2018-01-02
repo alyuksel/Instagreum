@@ -17,3 +17,8 @@ function deleteFromArrayById(array,id){
 });
 return array;
 }
+
+function serverDataToImg(item){
+  return {user:item.username,id:item.id, mimetype:item.img.contentType,data:_arrayBufferToBase64(item.img.data.data),
+           date:item.publicationDate,like:item.like,commentaire:item.commentaire};
+}
