@@ -172,7 +172,7 @@ app.post('/api/images/like/:u/:id', function(req,res){
   })
 });
 
-app.post('/api/images/addLike/:id',function(req,res){
+app.post('/api/images/likes/add/:id',function(req,res){
   var idP = req.params.id;
   var photo = Img.findOne({id:idP}).exec(function(err,doc){
     doc.like = doc.like + 1;
