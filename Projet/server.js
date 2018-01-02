@@ -65,7 +65,7 @@ app.post('/api/register/image/:u', upload.single('img'), function(req,res){
     }
     else{
       fs.unlink(img.path);
-      res.send("Done");
+      res.send(nImg);
     }
   });
 });
@@ -76,19 +76,18 @@ app.put('/api/images/comment/:id', function(req,res){
   var img = Img.find({id:imgId}).exec(function(err,doc){
     if(doc){
       doc.forEach(function(image) {
-        console.log("saluut");
-        console.log(image);
         image.commentaire = comment;
           image.save(function(err){
             if (err){
+              res.status(504).send("Error updating comment");
             }
             else{
-              res.send(image);
+              res.status(200).send(image);
             }
           });
       });
     }else{
-      res.status(504).send("error");
+      res.status(504).send("File not found");
     }
   });
 });
@@ -136,10 +135,10 @@ app.get('/api/images/delete/:id', function(req,res){
   var i = req.params.id;
   var img  = Img.find({id:i}).remove().exec(function(err,doc){
     if(doc){
-      res.send('deleted');
+      res.status(200).send('deleted');
     }
     else{
-      res.status(204).send('error');
+      res.status(500).send('error');
     }
   });
 

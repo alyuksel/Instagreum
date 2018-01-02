@@ -17,28 +17,31 @@ angular.module('profile-controller',[]).controller('profileController', function
 
   $scope.getProfileImages = function(){
     imageService.getImagesByUser(currentUser,function(res){
-      $scope.images = res.data.map(function (item){
-         return {id:item.id, mimetype:item.img.contentType,data:_arrayBufferToBase64(item.img.data.data),
-                  date:item.publicationDate,like:item.like,commentaire:item.commentaire};
-      });
+      $scope.images = {};
+      angular.forEach(res.data, function(item) {
+        $scope.images[item.id] = serverDataToImg(item);
+    });
     },
     function(res){
-      $scope.setServerLabel(false,"Erreur lorsque du chargement des images");
+      $scope.setServerLabel(false,"Erreur lors du chargement des images");
     });
   }
 
   $scope.deleteImage = function(image){
     imageService.deleteImage(image, function(){
-      $scope.getProfileImages();
-    })
+      delete $scope.images[image.id];
+      $scope.setServerLabel(true,"Image Supprimé");
+    },function(err){
+      $scope.setServerLabel(false,"Erreur de suppression de l'image");
+    });
   }
 
-  $scope.uploadFile = function(){
+  $scope.uploadImage = function(){
     var file = new FormData();
     file.append('img',$scope.img);
     imageService.sendImageByUser($scope.user,file,function(res){
       $scope.setServerLabel(true,"Fichier téléchargé");
-      $scope.getProfileImages();
+      $scope.images[res.data.id] = serverDataToImg(res.data);
     },
     function(){
       $scope.setServerLabel(false,"Echec du transfert de fichier");
@@ -47,7 +50,7 @@ angular.module('profile-controller',[]).controller('profileController', function
 
   $scope.updateComment = function(img){
     imageService.updateComment($scope.user,img,function(res){
-      $scope.getProfileImages();
+      $scope.images[res.data.id].commentaire = res.data.commentaire;
     },
   function(err){
     $scope.setServerLabel(false,"Echec mise a jour description");
