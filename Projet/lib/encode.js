@@ -19,6 +19,6 @@ return array;
 }
 
 function serverDataToImg(item){
-  return {id:item.id, mimetype:item.img.contentType,data:_arrayBufferToBase64(item.img.data.data),
+  return {user:item.username,id:item.id, mimetype:item.img.contentType,data:_arrayBufferToBase64(item.img.data.data),
            date:item.publicationDate,like:item.like,commentaire:item.commentaire};
 }

@@ -6,10 +6,10 @@ angular.module('main-controller',[]).controller('mainController', function($rout
 
     $scope.getAllImages = function(){
       imageService.getAllImages(function(res){
-        $scope.images = res.data.map(function (item){
-          return {user:item.username,mimetype:item.img.contentType,data:_arrayBufferToBase64(item.img.data.data),
-                  date:item.publicationDate,id:item.id,like:item.like,commentaire:item.commentaire,isLiked: false };
-        });
+        $scope.images = {};
+        angular.forEach(res.data, function(item) {
+          $scope.images[item.id] = serverDataToImg(item);
+      });
       });
     }
 
