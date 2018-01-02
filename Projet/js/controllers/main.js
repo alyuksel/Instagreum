@@ -21,6 +21,7 @@ angular.module('main-controller',[]).controller('mainController', function($rout
         $scope.result = [];
       });
     }
+
     $scope.getComments =function() {
       imageService.getComments(function(res){
         $scope.comments = res.data.map(function(item){
@@ -59,4 +60,6 @@ angular.module('main-controller',[]).controller('mainController', function($rout
     var currentUser = $cookies.get("current");
     $scope.getAllImages();
     $scope.isLiked();
+    $scope.getComments();
+
 });
