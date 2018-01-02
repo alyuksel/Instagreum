@@ -156,7 +156,7 @@ app.get('/api/images/like/:u', function(req,res){
   });
 });
 
-app.post('/api/images/like/:u/:id', function(req,res){
+app.put('/api/images/likes/add/:id/:u', function(req,res){
   var user = req.params.u;
   var id = req.params.id;
   var nLike = new Likes();
@@ -164,20 +164,18 @@ app.post('/api/images/like/:u/:id', function(req,res){
   nLike.photoId = id;
   nLike.save (function(err){
     if(err){
-      res.send("error")
+      res.status(500).send("Error while adding like in Like schema");
     }else{
-      res.send(nLike);
+        var photo = Img.findOne({id:id}).exec(function(err,doc){
+          if(err) res.status(500).send("Image not found");
+          else{
+            doc.like = doc.like + 1;
+            doc.save();
+            res.status(200).send(doc);
+          }
+      });
     }
-  })
-});
-
-app.post('/api/images/likes/add/:id',function(req,res){
-  var idP = req.params.id;
-  var photo = Img.findOne({id:idP}).exec(function(err,doc){
-    doc.like = doc.like + 1;
-    doc.save();
   });
-  res.send("OK")
 });
 
 app.post('/api/images/comments',function(req,res){

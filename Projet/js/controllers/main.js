@@ -42,12 +42,11 @@ angular.module('main-controller',[]).controller('mainController', function($rout
 
     $scope.like = function(id){
        if($scope.verify(id)){
-         imageService.addLike(currentUser,id,function(res){
-           imageService.likeImage(currentUser,id,function(res){
-             $scope.getAllImages();
-             $scope.isLiked();
-           });
-
+         imageService.likeImage(currentUser,id,function(res){
+           $scope.images[res.data.id].like = res.data.like;
+           $scope.isLiked();
+         },function(err){
+           console.log("erreur");
          });
        }
     };
