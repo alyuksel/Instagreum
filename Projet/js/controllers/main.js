@@ -43,6 +43,7 @@ angular.module('main-controller',[]).controller('mainController', function($rout
         console.log(err);
       });
       }
+      $scope.com[pId] = '';
     }
 
     $scope.verify = function(id){
