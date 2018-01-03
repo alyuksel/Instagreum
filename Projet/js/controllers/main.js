@@ -14,7 +14,7 @@ angular.module('main-controller',[]).controller('mainController', function($rout
     }
 
     $scope.result='';
-    $scope.com = '';
+
     $scope.isLiked = function(){
       imageService.isLiked(currentUser,function(res){
         $scope.result =  res.data;
@@ -34,16 +34,15 @@ angular.module('main-controller',[]).controller('mainController', function($rout
     }
 
     $scope.addComment = function(pId){
-      if($scope.com != ''){
-        console.log($scope.com );
-      var data = {username:currentUser,id:pId,comment:$scope.com};
+      if($scope.com[pId] != ''){
+      var data = {username:currentUser,id:pId,comment:$scope.com[pId]};
       imageService.addComment(data,function(res){
         console.log(res);
+        $scope.getComments();
       },function(err){
         console.log(err);
       });
       }
-      $scope.com = '';
     }
 
     $scope.verify = function(id){
@@ -74,5 +73,6 @@ angular.module('main-controller',[]).controller('mainController', function($rout
     $scope.getAllImages();
     $scope.isLiked();
     $scope.getComments();
+    $scope.com = [];
 
 });
