@@ -27,8 +27,8 @@
                        ng-click="like(image.id)"
                        ng-show="disco()">
                        Like !</button>
-              <textarea  class="form-control"  ng-model="com[image.id]">{{com[image.id]}}</textarea>
-              <button type="button" class="btn btn-outline-primary btn-sm float-sm-right" ng-click="addComment(image.id)">comment</button>
+              <textarea  class="form-control"  ng-model="com[image.id]" ng-show="disco()">{{com[image.id]}}</textarea>
+              <button type="button" class="btn btn-outline-primary btn-sm float-sm-right" ng-click="addComment(image.id)" ng-show="disco()">comment</button>
              </div>
 
              <div class="my-card-footer" ng-show="iscomment(image.id,com.id)" ng-repeat="com in comments">
