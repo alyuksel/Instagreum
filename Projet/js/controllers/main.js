@@ -55,12 +55,22 @@ angular.module('main-controller',[]).controller('mainController', function($rout
     };
 
     $scope.like = function(id){
+      var success = function (res){
+        $scope.images[res.data.id].like = res.data.like;
+        $scope.isLiked();
+      };
        if($scope.verify(id)){
          imageService.likeImage(currentUser,id,function(res){
-           $scope.images[res.data.id].like = res.data.like;
-           $scope.isLiked();
+            success(res);
          },function(err){
-           console.log("erreur");
+           console.log(err);
+         });
+       }else {
+         imageService.unlikeImage(currentUser,id,function(res){
+           res.data.like-=1;
+           success(res);
+         },function(err){
+           console.log(err);
          });
        }
     };

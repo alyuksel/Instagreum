@@ -219,7 +219,7 @@ app.get('/api/images',function(req,res){
  */
 app.get('/api/images/delete/:id', function(req,res){
   var i = req.params.id;
-  var img  = Img.find({id:i}).remove().exec(function(err,doc){
+  var img  = Img.findOneAndRemove({id:i}).exec(function(err,doc){
     if(doc){
       res.status(200).send('deleted');
     }
@@ -256,7 +256,7 @@ app.get('/api/images/like/:u', function(req,res){
  * @param {function} response function for the server response
  *
  */
-app.put('/api/images/likes/add/:id/:u', function(req,res){
+app.put('/api/images/likes/:id/:u', function(req,res){
   var user = req.params.u;
   var id = req.params.id;
   var nLike = new Likes();
@@ -277,6 +277,22 @@ app.put('/api/images/likes/add/:id/:u', function(req,res){
     }
   });
 });
+
+ app.delete('/api/images/likes/:id/:u', function(req,res){
+   var user = req.params.u;
+   var id = req.params.id;
+   Likes.findOneAndRemove({photoId:id, username : user }).exec(function(err,doc){
+     if(doc){
+       Img.findOneAndUpdate({id:id}, {$inc : {'like' : -1}}).exec(function(err,doc){
+         if (doc) res.status(200).send(doc);
+         else res.status(500).send("error during like decrementation");
+       })
+     }
+     else{
+       res.status(500).send('error during like deletion');
+     }
+   });
+ });
 
 /**
  * @function addCommentOnAnImage
